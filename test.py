@@ -4,13 +4,12 @@ import time
 import os
 
 import requests
+import pprint
 
 # JPXの東証上場一覧のページへのアクセス
 
 response = requests.get("https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls")
-contentType = response.headers['Content-Type']
-contentDisposition = response.headers['Content-Disposition']
-ATTRIBUTE = 'filename='
+pprint.pprint(response)
 fileName = 'data_j.xls'
 saveFilePath = os.path.join('.', fileName)
 with open(saveFilePath, 'wb') as saveFile:
