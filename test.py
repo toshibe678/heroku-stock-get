@@ -9,7 +9,6 @@ import pprint
 # JPXの東証上場一覧のページへのアクセス
 
 response = requests.get("https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls")
-pprint.pprint(response)
 fileName = 'data_j.xls'
 saveFilePath = os.path.join('.', fileName)
 with open(saveFilePath, 'wb') as saveFile:
@@ -21,7 +20,7 @@ company_df.columns = ['date', 'code', 'name', 'lst', 'sectorCode', 'sectorName',
 drop_col = ['flr1', 'flr2', 'flr3', 'flr4']
 company_df = company_df.drop(drop_col, axis=1)  # 不要な列の削除
 
-# j = 0
+j = 0
 count = 0
 tmp_code = 0
 for index, item in company_df.iterrows():
