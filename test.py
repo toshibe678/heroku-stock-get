@@ -20,6 +20,9 @@ company_df.columns = ['date', 'code', 'name', 'lst', 'sectorCode', 'sectorName',
 drop_col = ['flr1', 'flr2', 'flr3', 'flr4']
 company_df = company_df.drop(drop_col, axis=1)  # 不要な列の削除
 
+# 保存用ディレクトリの準備
+os.mkdir('/tmp/stock')
+
 j = 0
 count = 0
 tmp_code = 0
@@ -45,7 +48,7 @@ for index, item in company_df.iterrows():
             stock_df.reindex(columns=['Code', 'Date', 'Open', 'High', 'Low', 'Close', 'Volume'])
 
             # csv保存：[stock_code].csv
-            filename = "/content/drive/My Drive/stock/" + str(item['code']) + ".csv"
+            filename = "/tmp/stock/" + str(item['code']) + ".csv"
             stock_df.to_csv(filename, encoding="utf-8")
             tmp_code = item['code']
 
