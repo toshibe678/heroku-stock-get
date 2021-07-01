@@ -2,6 +2,7 @@ import pandas as pd
 import pandas_datareader.data as web
 import time
 import os
+import shutil
 
 import requests
 import pprint
@@ -53,4 +54,5 @@ for index, item in company_df.iterrows():
             tmp_code = item['code']
 
 print('to:'+str(tmp_code)+' end!')
+shutil.make_archive('stock', 'zip', root_dir='/tmp/stock')
 print('All_finish!')
