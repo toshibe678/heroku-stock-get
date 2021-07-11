@@ -1,14 +1,19 @@
 import pandas as pd
 import pandas_datareader.data as web
-import time
+import datetime as dt
 import os
-import shutil
-
+import time
+import git
+import sys
+from glob import glob
 import requests
 import pprint
 
-# JPXの東証上場一覧のページへのアクセス
+if len(sys.argv) <= 1:
+    print('Need args!')
+    sys.exit()
 
+# JPXの東証上場一覧のページへのアクセス
 response = requests.get("https://www.jpx.co.jp/markets/statistics-equities/misc/tvdivq0000001vg2-att/data_j.xls")
 fileName = 'data_j.xls'
 saveFilePath = os.path.join('.', fileName)
@@ -21,10 +26,19 @@ company_df.columns = ['date', 'code', 'name', 'lst', 'sectorCode', 'sectorName',
 drop_col = ['flr1', 'flr2', 'flr3', 'flr4']
 company_df = company_df.drop(drop_col, axis=1)  # 不要な列の削除
 
-# 保存用ディレクトリの準備
-os.mkdir('/tmp/stock')
+url = 'https://gitlab.com/toshi_click/gomi/stock.git'
+_repo_path = os.path.join('/tmp', 'stock')
+# clone from remote
+if not os.path.exists(_repo_path):
+    repo = git.Repo.clone_from('https://oauth2:' + os.environ['git_token'] + '@gitlab.com/toshi_click/gomi/stock.git', _repo_path, branch='main')
+else:
+    repo = git.Repo(_repo_path)
 
-j = 0
+remote = repo.remote(name='origin')
+remote.fetch()
+remote.pull()
+
+j = int(sys.argv[1])
 count = 0
 tmp_code = 0
 for index, item in company_df.iterrows():
@@ -36,7 +50,7 @@ for index, item in company_df.iterrows():
         code = str(item['code']) + '.JP'
         stock_df = web.DataReader(code, "stooq")
         # 早すぎると規制されるっぽいのでsleep
-        time.sleep(1)
+        time.sleep(2)
 
         # 1日の制限超えた応答きたらエラー
         if stock_df.empty:
@@ -49,10 +63,16 @@ for index, item in company_df.iterrows():
             stock_df.reindex(columns=['Code', 'Date', 'Open', 'High', 'Low', 'Close', 'Volume'])
 
             # csv保存：[stock_code].csv
-            filename = "/tmp/stock/" + str(item['code']) + ".csv"
+            filename = _repo_path + "/" + str(item['code']) + ".csv"
             stock_df.to_csv(filename, encoding="utf-8")
             tmp_code = item['code']
 
 print('to:'+str(tmp_code)+' end!')
-shutil.make_archive('stock', 'zip', root_dir='/tmp/stock')
+# 変更があったファイルをadd
+repo.git.add(all=True)
+
+# コミット
+now = dt.datetime.now(dt.timezone(dt.timedelta(hours=9)))
+repo.index.commit(str(now) + ' commit!')
+remote.push()
 print('All_finish!')
