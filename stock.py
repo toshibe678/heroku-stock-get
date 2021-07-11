@@ -42,7 +42,7 @@ j = int(sys.argv[1])
 count = 0
 tmp_code = 0
 for index, item in company_df.iterrows():
-    if j <= index / (len(company_df) / 20) < j + 1:
+    if j <= index / (len(company_df) / 16) < j + 1:
         if count == 0:
             print('from:'+str(item['code'])+' start!')
             count = 1
