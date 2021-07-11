@@ -1,8 +1,13 @@
+# 日本株価の取得ツール
+日本の株価を引数により16分割で取得しcsvにしてリポジトリにプッシュするツールです。
+pandas_datareaderは同一IPから実行しすぎると拒否されるのでherokuを1時間おきにcronで実行してIPコロコロしてます。
+
+#### ローカルでテスト時
 pip3 install -r requirements.txt
 
 herokuで実行
 heroku run --app floating-stream-17786 python stock.py 1
-heroku run --app floating-stream-17786 python stock.py 19
+heroku run --app floating-stream-17786 python stock.py 16
 
 環境変数の一覧
 heroku config --app floating-stream-17786
