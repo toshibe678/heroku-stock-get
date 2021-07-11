@@ -5,9 +5,7 @@ import os
 import time
 import git
 import sys
-from glob import glob
 import requests
-import pprint
 
 if len(sys.argv) <= 1:
     print('Need args!')
