@@ -21,20 +21,21 @@ heroku config:unset 環境変数名 --app floating-stream-17786
 stock token
 heroku config:set git_token=xxxxxxxxxxxxxxxx --app floating-stream-17786
 
-crontab -e
-2 16 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 0
-2 17 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 1
-2 18 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 2
-2 19 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 3
-2 20 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 4
-2 21 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 5
-2 22 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 6
-2 23 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 7
-2 0 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 8
-2 1 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 9
-2 2 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 10
-2 3 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 11
-2 4 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 12
-2 5 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 13
-2 6 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 14
-2 7 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 15
+
+crontab -e 
+2 0 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 0 1>/dev/null 2>/dev/null
+32 1 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 1 1>/dev/null 2>/dev/null
+2 3 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 2 1>/dev/null 2>/dev/null
+32 4 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 3 1>/dev/null 2>/dev/null
+2 6 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 4 1>/dev/null 2>/dev/null
+32 7 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 5 1>/dev/null 2>/dev/null
+2 9 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 6 1>/dev/null 2>/dev/null
+32 10 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 7 1>/dev/null 2>/dev/null
+2 12 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 8 1>/dev/null 2>/dev/null
+32 13 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 9 1>/dev/null 2>/dev/null
+2 15 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 10 1>/dev/null 2>/dev/null
+32 16 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 11 1>/dev/null 2>/dev/null
+2 18 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 12 1>/dev/null 2>/dev/null
+32 19 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 13 1>/dev/null 2>/dev/null
+2 21 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 14 1>/dev/null 2>/dev/null
+32 22 * * 1-5 /usr/local/bin/heroku run --app floating-stream-17786 python stock.py 15 1>/dev/null 2>/dev/null
